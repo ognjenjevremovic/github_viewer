@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>Github Viewer</title>
+
+        <!-- Google fonts -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext">
+
+        <!-- Font-awesome -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+            crossorigin="anonymous">
+
+        <!-- Bootstrap -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            href="css/style.css">
+
+        <!-- Metas -->
+        <meta name="author" content="Ognjen Jevremovic">
+        <meta name="vieport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
+    </head>
+
+    <body>
+        <!-- Application wrapper -->
+        <div
+            class="container"
+            ng-app="githubViewer">
+
+            <!-- Main Controller -->
+            <div
+                ng-controller="MainCtrl as vm">
+
+                <!-- Search form -->
+                <form
+                    class="form form-horizontal"
+                    name="githubSearchForm">
+
+                    <div
+                        class="form-group">
+                            <!-- Label -->
+                            <label
+                                for="githubUsername"
+                                class="sr-only">Github Username
+                            </label>
+                            <!-- Input -->
+                            <input
+                                type="text"
+                                id="githubUsername"
+                                class="form-control input-lg"
+                                name="githubUsername"
+                                placeholder="Github Username"
+                                ng-model="vm.githubUsername" />
+                    </div>
+
+                    <!-- Search btn -->
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-lg btn-block"
+                        ng-click="vm.getPersonInfo(vm.githubUsername)"
+                        ng-disabled="!vm.githubUsername">Search
+                    </button>
+                </form>
+
+                <!-- Error -->
+                <div
+                    class="error"
+                    ng-show="vm.error">
+                    <h3 class="text-center text-danger">
+                        {{vm.error}}
+                    </h3>
+                </div>
+
+                <!-- User profile -->
+                <div
+                    class="user-profile"
+                    ng-show="vm.person">
+
+                    <!-- Main info -->
+                    <h1 class="text-center">
+                        <a href="{{vm.person.html_url}}" target="_blank">
+                            @{{vm.person.login}}
+                        </a>
+                    </h1>
+                    <h4 class="text-center">
+                        {{vm.person.name}}
+                        <br>
+                        {{vm.person.location}}
+                    </h4>
+                    <img
+                        class="img-responsive img-rounded center-block"
+                        alt="{{vm.person.name}}'s avatar"
+                        name="@{{vm.person.login}}"
+                        ng-src="{{vm.person.avatar_url}}">
+
+                    <!-- Repos -->
+                    <table class="table table-striped">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Repo name</th>
+                                <th>Description</th>
+                                <th>Stars</th>
+                                <th>Language</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                ng-repeat="repo in vm.personRepos">
+                                <td>
+                                    <a
+                                        target="_blank"
+                                        href="{{repo.html_url}}">{{repo.name}}</a>
+                                </td>
+                                <td>{{repo.description}}</td>
+                                <td>{{repo.stargazers_count}}</td>
+                                <td>{{repo.language}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Angular Core -->
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js">
+        </script>
+
+        <!-- Angular application -->
+        <script
+            src="js/app.js">
+        </script>
+
+        <!-- Constants -->
+        <script
+            src="js/constants/index.js">
+        </script>
+        <script
+            src="js/constants/githubURLApi.js">
+        </script>
+
+        <!-- Services -->
+        <script
+            src="js/services/index.js">
+        </script>
+        <script
+            src="js/services/userService.js">
+        </script>
+        <script
+            src="js/services/repoService.js">
+        </script>
+
+        <!-- Controllers -->
+        <script
+            src="js/controllers/index.js">
+        </script>
+        <script
+            src="js/controllers/mainCtrl.js">
+        </script>
+
+    </body>
+</html>
