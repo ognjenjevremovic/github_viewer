@@ -66,12 +66,12 @@
                     </div>
 
                     <!-- Search btn -->
-                    <button
-                        type="button"
+                    <input
+                        type="submit"
+                        value="Search"
                         class="btn btn-primary btn-lg btn-block"
                         ng-click="vm.getPersonInfo(vm.githubUsername)"
-                        ng-disabled="!vm.githubUsername">Search
-                    </button>
+                        ng-disabled="!vm.githubUsername">
                 </form>
 
                 <!-- Error -->
@@ -105,6 +105,43 @@
                         name="@{{vm.person.login}}"
                         ng-src="{{vm.person.avatar_url}}">
 
+                    <!-- Modify results -->
+                    <div class="form-group form-inline center-block">
+                        <!-- Order by filter -->
+                        <label>Order by :</label>
+                        <select
+                            class="form-control input-lg"
+                            ng-model="vm.orderReposBy">
+                            <option value="+name">Repository name</option>
+                            <option value="-stargazers_count">Number of stars</option>
+                            <option value="+language">Language</option>
+                        </select>
+                        <!-- Limit to filter -->
+                        <label
+                            class="sr-only"
+                            for="limitTo">Limit to number of repositories
+                        </label>
+                        <select
+                            class="form-control input-lg"
+                            ng-model="vm.limitReposTo">
+                            <option value="10">10</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <!-- Filter by name -->
+                        <label
+                            class="sr-only"
+                            for="filterByName">Filter by name</label>
+                        <input
+                            class="form-control input-lg"
+                            type="text"
+                            id="filterByName"
+                            name="filterByName"
+                            placeholder="Filter repository by keyword"
+                            ng-model="vm.filterReposByName">
+                    </div>
+
                     <!-- Repos -->
                     <table class="table table-striped">
                         <thead class="text-center">
@@ -117,14 +154,14 @@
                         </thead>
                         <tbody>
                             <tr
-                                ng-repeat="repo in vm.personRepos">
+                                ng-repeat="repo in vm.personRepos | orderBy:vm.orderReposBy | filter:vm.filterReposByName | limitTo:vm.limitReposTo">
                                 <td>
                                     <a
                                         target="_blank"
                                         href="{{repo.html_url}}">{{repo.name}}</a>
                                 </td>
                                 <td>{{repo.description}}</td>
-                                <td>{{repo.stargazers_count}}</td>
+                                <td>{{repo.stargazers_count | number}}</td>
                                 <td>{{repo.language}}</td>
                             </tr>
                         </tbody>

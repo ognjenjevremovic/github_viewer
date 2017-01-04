@@ -20,6 +20,11 @@
         vm.githubUsername = undefined;
         vm.getPersonInfo  = getPersonInfo;
 
+        // filters
+        vm.filterReposByName =  null;
+        vm.limitReposTo      =  '10';
+        vm.orderReposBy      =  '+name';
+
         ////////
 
         function getPersonInfo(username) {
