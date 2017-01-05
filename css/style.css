@@ -1,4 +1,48 @@
+/* general */
+html,
+body {
+    height: 100%;
+}
 body {
     font-family: 'Lato', sans-serif;
     font-size: 16px;
+}
+
+/* down arrow */
+.btn-down {
+    font-size: 4.5rem;
+    color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6rem;
+    width: 80%;
+    animation-duration: 1.5s;
+    -webkit-animation-duration: 1.5s;
+    -moz-webkit-animation-duration: 1.5s;
+    -ms-webkit-animation-duration: 1.5s;
+    -o-webkit-animation-duration: 1.5s;
+}
+
+/* logo */
+.logo-sm {
+    height: 100%;
+}
+
+/* navbar */
+.navbar-full {
+    border-radius: 0px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* 1st section */
+#cover {
+    padding-top: 6rem;
+    background: #555 url('../imgs/background7.png') no-repeat center center;
+    /*background-blend-mode:soft-light;*/
+    background-size: cover;
+    color: white;
+    height: 100vh;
+    text-align: center;
 }
